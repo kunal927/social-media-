@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-radius: 25px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      overflow: hidden;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    /* Left side - info panel */
+    .login-left {
+       background: linear-gradient(135deg, #ff7f50 0%, #1e90ff 100%);
+
+
+      color: #fff;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .login-left h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .login-left p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+    }
+
+    /* Right side - form panel */
+    .login-right {
+      flex: 1;
+      padding: 50px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .login-right h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #111;
+      font-weight: 700;
+    }
+
+    .form-control {
+      border-radius: 12px;
+      padding: 12px 15px;
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #1DA1F2;
+      box-shadow: 0 0 8px rgba(29,161,242,0.3);
+      outline: none;
+    }
+
+    .btn-primary {
+      background: #1DA1F2;
+      border: none;
+      border-radius: 25px;
+      padding: 10px 0;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: #0d8ddb;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .btn-outline-success {
+      border-radius: 25px;
+      padding: 10px 0;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-success:hover {
+      background: #28a745;
+      color: #fff;
+      border-color: #28a745;
+    }
+
+    .alert {
+      border-radius: 15px;
+      padding: 15px 20px;
+    }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+
+    /* Premium logo style for bottom */
+    .premium-logo {
+      font-size: 1.8rem;
+      font-weight: 600;
+      font-family: 'Segoe UI', sans-serif;
+      letter-spacing: 1px;
+      padding: 8px 20px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+      margin-top: 25px;
+    }
+
+    .premium-logo:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .mitro {
+      color: #ff6b6b; /* warm red/orange */
+    }
+
+    .net {
+      color: #1e90ff; /* bright blue */
+    }
+
+    @media(max-width: 768px){
+      .login-container {
+        flex-direction: column;
+        border-radius: 20px;
+      }
+      .login-left {
+        display: none;
+      }
+      .login-right {
+        padding: 40px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <!-- Left info panel -->
+    <div class="login-left">
+      <div class="d-flex justify-content-center">
+        <div class="premium-logo">
+          <span class="mitro">Mitro</span><span class="net">Net</span>
+        </div>
+      </div>
+      <p>Connect with your friends and the world around you. Share, like, and comment!</p>
+    </div>
+
+    <!-- Right login form -->
+    <div class="login-right">
+      <h2>Login</h2>
+
+      <% if (Array.isArray(errors) && errors.length > 0) { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Error!</strong>
+          <ul class="mb-0">
+            <% errors.forEach(error => { %>
+              <li><%= error %></li>
+            <% }) %>
+          </ul>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% } %>
+
+      <form action="/login" method="POST">
+        <input type="email" name="Email" class="form-control" placeholder="Email" required value="<%= oldInput.Email ? oldInput.Email : '' %>">
+        <input type="password" name="Password" class="form-control" placeholder="Password" required>
+        <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+      </form>
+
+      <div class="text-center">
+        <span>New here?</span>
+        <a href="/signup" class="btn btn-outline-success w-100 mt-2">Sign Up</a>
+      </div>
+
+     
+     
+
+      <div class="login-footer mt-3">
+        &copy; <%= new Date().getFullYear() %> Mitronet
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
